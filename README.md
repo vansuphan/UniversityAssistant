@@ -165,7 +165,6 @@ Dữ liệu được load tự động thông qua `data_loader.py` module khi kh
    - "Tính tổng chi phí cho 18 tín chỉ"
 
 4. **Dịch vụ sinh viên:**
-   - "Tôi cần tư vấn nghề nghiệp"
    - "Thông tin về thư viện"
    - "Hỗ trợ học tập ở đâu?"
 
@@ -177,15 +176,6 @@ Sử dụng các nút hành động nhanh để:
 - 💰 Tính học phí
 - 🆘 Tìm dịch vụ hỗ trợ
 
-### 🔄 Multi-turn Conversation
-
-Bot có thể nhớ ngữ cảnh cuộc trò chuyện:
-```
-Bạn: Cho tôi biết về môn CS101
-Bot: [Thông tin môn CS101]
-Bạn: Môn này có mấy tín chỉ?
-Bot: [Trả lời dựa trên thông tin CS101 đã cung cấp]
-```
 
 ### ⚠️ Troubleshooting
 
@@ -216,19 +206,4 @@ Bot: [Trả lời dựa trên thông tin CS101 đã cung cấp]
    - Kiểm tra Node.js version (>= 16)
    - Xóa node_modules và chạy lại `npm install`
 
-### 🔧 Quick Fix Commands
-
-```bash
-# Test setup
-cd backend
-source venv-app-2/bin/activate
-python test_setup.py
-
-# Start backend
-./start_backend.sh
-
-# Start frontend (terminal khác)
-cd frontend
-npm run dev
-```
 ---
