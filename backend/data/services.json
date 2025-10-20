@@ -1,0 +1,44 @@
+[
+  {
+    "service_name": "Library Services",
+    "description": "Access to books, journals, and study spaces",
+    "location": "Main Library, 2nd Floor",
+    "hours": "7:00-22:00 (Mon-Sun)",
+    "contact": "library@university.edu"
+  },
+  {
+    "service_name": "Career Counseling",
+    "description": "Job placement assistance and career guidance",
+    "location": "Student Center, Room 301",
+    "hours": "9:00-17:00 (Mon-Fri)",
+    "contact": "career@university.edu"
+  },
+  {
+    "service_name": "Academic Advising",
+    "description": "Course selection and academic planning",
+    "location": "Academic Building, Room 205",
+    "hours": "8:00-17:00 (Mon-Fri)",
+    "contact": "advising@university.edu"
+  },
+  {
+    "service_name": "IT Support",
+    "description": "Technical support for university systems and software",
+    "location": "IT Center, Room 101",
+    "hours": "8:00-20:00 (Mon-Fri), 9:00-17:00 (Sat-Sun)",
+    "contact": "itsupport@university.edu"
+  },
+  {
+    "service_name": "Financial Aid Office",
+    "description": "Scholarships, loans, and financial assistance",
+    "location": "Administration Building, Room 201",
+    "hours": "8:00-17:00 (Mon-Fri)",
+    "contact": "financialaid@university.edu"
+  },
+  {
+    "service_name": "Health Services",
+    "description": "Medical care and health counseling for students",
+    "location": "Health Center, Ground Floor",
+    "hours": "8:00-18:00 (Mon-Fri), 9:00-15:00 (Sat)",
+    "contact": "health@university.edu"
+  }
+]

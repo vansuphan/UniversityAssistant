@@ -1,0 +1,14 @@
+{
+  "undergraduate_credit_hour": 500000,
+  "graduate_credit_hour": 750000,
+  "registration_fee": 200000,
+  "library_fee": 100000,
+  "technology_fee": 150000,
+  "student_activity_fee": 50000,
+  "parking_fee": 300000,
+  "meal_plan_basic": 2000000,
+  "meal_plan_premium": 3000000,
+  "dormitory_single": 5000000,
+  "dormitory_double": 3500000,
+  "dormitory_quad": 2500000
+}

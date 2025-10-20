@@ -1,0 +1,66 @@
+[
+  {
+    "course_id": "CS101",
+    "exam_type": "Midterm",
+    "date": "2025-03-15",
+    "time": "8:00-10:00",
+    "room": "A101-A105",
+    "duration": 120
+  },
+  {
+    "course_id": "CS101",
+    "exam_type": "Final",
+    "date": "2025-05-20",
+    "time": "8:00-10:00",
+    "room": "A101-A105",
+    "duration": 120
+  },
+  {
+    "course_id": "CS201",
+    "exam_type": "Midterm",
+    "date": "2025-03-20",
+    "time": "10:00-12:00",
+    "room": "B205-B210",
+    "duration": 120
+  },
+  {
+    "course_id": "CS201",
+    "exam_type": "Final",
+    "date": "2025-05-25",
+    "time": "14:00-16:00",
+    "room": "B205-B210",
+    "duration": 120
+  },
+  {
+    "course_id": "MATH101",
+    "exam_type": "Midterm",
+    "date": "2025-03-18",
+    "time": "14:00-16:00",
+    "room": "C301-C305",
+    "duration": 120
+  },
+  {
+    "course_id": "MATH101",
+    "exam_type": "Final",
+    "date": "2025-05-22",
+    "time": "14:00-16:00",
+    "room": "C301-C305",
+    "duration": 120
+  },
+  {
+    "course_id": "ENG101",
+    "exam_type": "Midterm",
+    "date": "2025-03-25",
+    "time": "16:00-18:00",
+    "room": "D102-D105",
+    "duration": 120
+  },
+  {
+    "course_id": "ENG101",
+    "exam_type": "Final",
+    "date": "2025-05-28",
+    "time": "16:00-18:00",
+    "room": "D102-D105",
+    "duration": 120
+  }
+]

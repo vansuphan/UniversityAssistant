@@ -1,0 +1,62 @@
+[
+  {
+    "course_id": "CS101",
+    "course_name": "Introduction to Programming",
+    "credits": 3,
+    "instructor": "Dr. Nguyen Van A",
+    "schedule": "Mon-Wed-Fri 8:00-9:30",
+    "room": "A101",
+    "prerequisites": [],
+    "description": "Basic programming concepts using Python"
+  },
+  {
+    "course_id": "CS201", 
+    "course_name": "Data Structures",
+    "credits": 4,
+    "instructor": "Dr. Tran Thi B",
+    "schedule": "Tue-Thu 10:00-11:30",
+    "room": "B205",
+    "prerequisites": ["CS101"],
+    "description": "Advanced data structures and algorithms"
+  },
+  {
+    "course_id": "MATH101",
+    "course_name": "Calculus I",
+    "credits": 4,
+    "instructor": "Dr. Le Van C",
+    "schedule": "Mon-Wed 14:00-15:30",
+    "room": "C301",
+    "prerequisites": [],
+    "description": "Differential and integral calculus"
+  },
+  {
+    "course_id": "ENG101",
+    "course_name": "English Communication",
+    "credits": 2,
+    "instructor": "Ms. Pham Thi D",
+    "schedule": "Tue-Thu 16:00-17:30",
+    "room": "D102",
+    "prerequisites": [],
+    "description": "English speaking and writing skills"
+  },
+  {
+    "course_id": "CS301",
+    "course_name": "Database Systems",
+    "credits": 3,
+    "instructor": "Dr. Hoang Van E",
+    "schedule": "Mon-Wed 9:00-10:30",
+    "room": "C205",
+    "prerequisites": ["CS201"],
+    "description": "Database design and management systems"
+  },
+  {
+    "course_id": "CS401",
+    "course_name": "Software Engineering",
+    "credits": 4,
+    "instructor": "Dr. Pham Thi F",
+    "schedule": "Tue-Thu 14:00-15:30",
+    "room": "B301",
+    "prerequisites": ["CS301"],
+    "description": "Software development methodologies and practices"
+  }
+]
