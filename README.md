@@ -57,22 +57,6 @@ app-2/
 
 ## 🚀 Cài đặt và chạy
 
-### ⚡ Khởi động nhanh (Khuyến nghị)
-
-```bash
-# Di chuyển vào thư mục project
-cd app-2
-
-# Chạy script khởi động tự động
-./run.sh
-```
-
-Script này sẽ tự động:
-- Tạo virtual environment cho Python
-- Cài đặt dependencies cho backend và frontend
-- Khởi động cả backend và frontend
-- Mở trình duyệt tại `http://localhost:3000`
-
 ### 🔧 Khởi động thủ công
 
 #### 1. Backend Setup
@@ -147,18 +131,13 @@ FLASK_DEBUG=True
 ```
 
 **Lưu ý**: 
-- Hệ thống sử dụng custom OpenAI endpoint (`https://aiportalapi.stu-platform.live/jpe`)
-- Có thể hoạt động với demo API key nếu chưa cấu hình
-- Backend chạy trên port 5001 (thay vì 5000)
+- Backend chạy trên port 5001
 - Frontend kết nối đến `http://localhost:5001`
 
 ### API Endpoints
 
 - `POST /api/chat` - Gửi tin nhắn đến chatbot
 - `GET /api/health` - Health check endpoint
-- `GET /api/courses` - Lấy danh sách môn học (nếu có)
-- `GET /api/exams` - Lấy lịch thi (nếu có)
-- `GET /api/services` - Lấy dịch vụ sinh viên (nếu có)
 
 **Lưu ý**: Backend chạy trên port 5001, frontend kết nối đến `http://localhost:5001`
 
@@ -172,23 +151,6 @@ FLASK_DEBUG=True
 | TC_04 | "Tôi cần tư vấn nghề nghiệp" | Cung cấp thông tin dịch vụ tư vấn nghề nghiệp |
 | TC_05 | "Môn nào có giảng viên Dr. Nguyen?" | Tìm kiếm môn học theo tên giảng viên |
 | TC_06 | "Tôi muốn đăng ký môn CS201 nhưng chưa học CS101" | Cảnh báo về điều kiện tiên quyết |
-
-### 🧪 Chạy Test Suite
-
-```bash
-# Chạy test tự động
-python test_chatbot.py
-```
-
-Test suite sẽ kiểm tra:
-- ✅ API health check
-- ✅ 8 test scenarios chính
-- ✅ Multi-turn conversation
-- ✅ Data endpoints (nếu có)
-- ✅ Function calling
-- ✅ Error handling
-
-**Lưu ý**: Test script kết nối đến `http://localhost:5000` - cần cập nhật nếu backend chạy trên port khác
 
 ## 🎯 Function Calling
 
@@ -343,22 +305,5 @@ npm run dev
 2. Thêm vào FUNCTIONS array
 3. Xử lý trong chat endpoint
 4. Test với test_chatbot.py
-
-
-## 🎓 Workshop Integration
-
-Dự án này được phát triển dựa trên workshop **"Building Real-World Chatbot Systems Using Azure OpenAI API"** với các tính năng:
-
-### ✅ Workshop Requirements Fulfilled
-
-- **Real-world Problem**: Giải quyết vấn đề hỗ trợ sinh viên trong trường đại học
-- **Mock Data Generation**: Tạo dữ liệu mẫu cho môn học, lịch thi, dịch vụ sinh viên
-- **OpenAI SDK Usage**: Sử dụng chat completion, function calling, message management
-- **Function Calling**: 4 functions để truy xuất dữ liệu động
-- **Multi-turn Conversation**: Duy trì context cuộc trò chuyện
-- **Prompt Engineering**: Few-shot examples và system prompts tối ưu
-- **Testing**: Comprehensive test suite với 8+ scenarios
-- **UI/UX**: Modern chat interface với React và Tailwind CSS
-
 
 ---
