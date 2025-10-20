@@ -90,29 +90,6 @@ npm run dev
 
 Frontend sẽ chạy tại `http://localhost:3000`
 
-### 🎯 Lần đầu sử dụng
-
-1. **Lấy OpenAI API Key:**
-   - Truy cập [OpenAI Platform](https://platform.openai.com/api-keys)
-   - Tạo API key mới
-   - Copy API key
-
-2. **Cấu hình Environment:**
-   ```bash
-   cd backend
-   cp env_example.txt .env
-   # Mở file .env và thay thế "your_openai_api_key_here" bằng API key thật
-   ```
-
-3. **Khởi động hệ thống:**
-   ```bash
-   ./run.sh
-   ```
-
-4. **Truy cập ứng dụng:**
-   - Mở trình duyệt tại `http://localhost:3000`
-   - Bắt đầu chat với chatbot!
-
 ## 🔧 Cấu hình
 
 ### Environment Variables
