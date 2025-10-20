@@ -254,22 +254,4 @@ python test_setup.py
 cd frontend
 npm run dev
 ```
-
-### 🛠️ Development
-
-**Thêm môn học mới:**
-```json
-// Trong backend/data/courses.json, thêm object mới
-{
-    "course_id": "CS301",
-    "course_name": "Advanced Programming",
-    "credits": 3,
-    "instructor": "Dr. New Instructor",
-    "schedule": "Mon-Wed 14:00-15:30",
-    "room": "A201",
-    "prerequisites": ["CS201"],
-    "description": "Advanced programming concepts"
-}
-```
-
 ---
