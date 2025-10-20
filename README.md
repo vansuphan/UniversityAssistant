@@ -7,7 +7,7 @@ Một chatbot AI thông minh được xây dựng để hỗ trợ sinh viên v�
 - **Thông tin môn học**: Tìm kiếm thông tin chi tiết về các môn học, giảng viên, lịch học
 - **Lịch thi**: Xem lịch thi giữa kỳ, cuối kỳ cho các môn học
 - **Tính học phí**: Tính toán học phí và các khoản phí dựa trên số tín chỉ
-- **Dịch vụ sinh viên**: Thông tin về thư viện, tư vấn nghề nghiệp, hỗ trợ học tập
+- **Dịch vụ sinh viên**: Thông tin về thư viện, hỗ trợ học tập
 - **Multi-turn conversation**: Duy trì ngữ cảnh cuộc trò chuyện
 - **Function calling**: Sử dụng OpenAI function calling để truy xuất dữ liệu động
 
@@ -16,25 +16,20 @@ Một chatbot AI thông minh được xây dựng để hỗ trợ sinh viên v�
 ### Backend
 - **Python Flask**: Web framework
 - **OpenAI API**: GPT-4o-mini với function calling
-- **Flask-CORS**: Xử lý CORS cho frontend
 
 ### Frontend
 - **Next.js 14**: React framework với App Router
-- **TypeScript**: Type safety
-- **Tailwind CSS**: Styling
 - **Axios**: HTTP client
-- **Lucide React**: Icons
 
 ## 📁 Cấu trúc project
 
 ```
-app-2/
+UniversityAssistant/
 ├── backend/
 │   ├── app.py              # Flask backend với OpenAI integration
 │   ├── data_loader.py      # Module load dữ liệu từ JSON files
 │   ├── requirements.txt    # Python dependencies
 │   ├── env_example.txt     # Environment variables example
-│   ├── venv-app-2/         # Python virtual environment
 │   └── data/               # Mock data files
 │       ├── courses.json    # Thông tin môn học
 │       ├── exams.json      # Lịch thi
@@ -148,9 +143,7 @@ FLASK_DEBUG=True
 | TC_01 | "Cho tôi biết thông tin môn CS101" | Trả về thông tin chi tiết môn học |
 | TC_02 | "Tính học phí cho 15 tín chỉ đại học" | Gọi function tính học phí và trả về kết quả |
 | TC_03 | "Khi nào thi cuối kỳ?" | Trả về lịch thi cuối kỳ |
-| TC_04 | "Tôi cần tư vấn nghề nghiệp" | Cung cấp thông tin dịch vụ tư vấn nghề nghiệp |
-| TC_05 | "Môn nào có giảng viên Dr. Nguyen?" | Tìm kiếm môn học theo tên giảng viên |
-| TC_06 | "Tôi muốn đăng ký môn CS201 nhưng chưa học CS101" | Cảnh báo về điều kiện tiên quyết |
+| TC_04 | "Môn nào có giảng viên Dr. Nguyen?" | Tìm kiếm môn học theo tên giảng viên |
 
 ## 🎯 Function Calling
 
@@ -174,22 +167,6 @@ Hệ thống sử dụng mock data được lưu trữ trong các file JSON riê
 
 ### 🔧 Data Loading
 Dữ liệu được load tự động thông qua `data_loader.py` module khi khởi động backend.
-
-**Ưu điểm của cấu trúc mới:**
-- ✅ Dữ liệu tách biệt khỏi code logic
-- ✅ Dễ dàng cập nhật và quản lý dữ liệu
-- ✅ Hỗ trợ encoding UTF-8 cho tiếng Việt
-- ✅ Error handling khi load dữ liệu
-- ✅ Fallback data nếu file không tồn tại
-
-## 🔮 Tính năng nâng cao
-
-- **Conversation History**: Lưu trữ lịch sử cuộc trò chuyện theo session
-- **Error Handling**: Xử lý lỗi graceful
-- **Responsive Design**: Giao diện thân thiện trên mọi thiết bị
-- **Quick Actions**: Các hành động nhanh cho câu hỏi thường gặp
-- **Typing Indicator**: Hiển thị trạng thái đang nhập
-- **Vietnamese Support**: Hỗ trợ tiếng Việt hoàn toàn
 
 ## 📖 Hướng dẫn sử dụng
 
@@ -248,22 +225,17 @@ Bot: [Trả lời dựa trên thông tin CS101 đã cung cấp]
    # Chỉnh sửa .env và thêm OPENAI_API_KEY thật
    ```
 
-2. **"Cannot connect to backend"**
-   - Kiểm tra backend có đang chạy tại port 5001
-   - Chạy `python app.py` trong thư mục backend
-   - Hoặc sử dụng: `./start_backend.sh`
-
-3. **"OpenAI API Error"**
+2. **"OpenAI API Error"**
    - Kiểm tra OPENAI_API_KEY trong file .env
    - Đảm bảo API key còn hiệu lực và có credit
    - Test API key: `python test_setup.py`
 
-4. **"Module not found"**
+3. **"Module not found"**
    - Chạy `pip install -r requirements.txt` trong backend
    - Chạy `npm install` trong frontend
    - Đảm bảo virtual environment được activate
 
-5. **Frontend không load**
+4. **Frontend không load**
    - Kiểm tra Node.js version (>= 16)
    - Xóa node_modules và chạy lại `npm install`
 
@@ -299,11 +271,5 @@ npm run dev
     "description": "Advanced programming concepts"
 }
 ```
-
-**Thêm function mới:**
-1. Tạo function trong backend/app.py
-2. Thêm vào FUNCTIONS array
-3. Xử lý trong chat endpoint
-4. Test với test_chatbot.py
 
 ---
