@@ -83,7 +83,6 @@ class ChromaDBManager:
         ]
         
         try:
-            # Kiểm tra xem đã có FAQs chưa
             existing_count = self.faq_collection.count()
             if existing_count == 0:
                 logger.info("Adding default FAQs to ChromaDB...")
@@ -328,6 +327,152 @@ class ChromaDBManager:
             logger.error(f"Error getting analytics: {e}")
             return {"error": str(e)}
     
+    def add_document_from_text(self, title: str, content: str, category: str = "general", chunk_size: int = 1000, chunk_overlap: int = 200) -> List[str]:
+        """
+        Thêm document từ text, tự động chunking nếu cần
+        
+        Args:
+            title (str): Tiêu đề document
+            content (str): Nội dung document
+            category (str): Danh mục
+            chunk_size (int): Kích thước mỗi chunk (số ký tự)
+            chunk_overlap (int): Số ký tự overlap giữa các chunk
+            
+        Returns:
+            List[str]: Danh sách IDs của các chunks đã thêm
+        """
+        try:
+            # Chunking nếu content quá dài
+            if len(content) > chunk_size:
+                chunks = self._chunk_text(content, chunk_size, chunk_overlap)
+                logger.info(f"Document '{title}' split into {len(chunks)} chunks")
+            else:
+                chunks = [content]
+            
+            chunk_ids = []
+            for i, chunk in enumerate(chunks):
+                chunk_id = str(uuid.uuid4())
+                chunk_title = f"{title} (Part {i+1}/{len(chunks)})" if len(chunks) > 1 else title
+                
+                searchable_text = f"{chunk_title}\n{chunk}"
+                
+                self.knowledge_collection.add(
+                    documents=[searchable_text],
+                    metadatas=[{
+                        "title": chunk_title,
+                        "content": chunk,
+                        "original_title": title,
+                        "category": category,
+                        "chunk_index": i,
+                        "total_chunks": len(chunks),
+                        "created_at": datetime.now().isoformat()
+                    }],
+                    ids=[chunk_id]
+                )
+                chunk_ids.append(chunk_id)
+            
+            logger.info(f"Added document '{title}' with {len(chunks)} chunks to knowledge base")
+            return chunk_ids
+            
+        except Exception as e:
+            logger.error(f"Error adding document: {e}")
+            raise
+    
+    def _chunk_text(self, text: str, chunk_size: int, chunk_overlap: int) -> List[str]:
+        """
+        Chia text thành các chunks với overlap
+        
+        Args:
+            text (str): Text cần chia
+            chunk_size (int): Kích thước mỗi chunk
+            chunk_overlap (int): Số ký tự overlap
+            
+        Returns:
+            List[str]: Danh sách chunks
+        """
+        chunks = []
+        start = 0
+        
+        while start < len(text):
+            end = start + chunk_size
+            chunk = text[start:end]
+            chunks.append(chunk)
+            
+            # Move start position with overlap
+            start = end - chunk_overlap
+            if start >= len(text):
+                break
+        
+        return chunks
+
+    def get_all_documents(self) -> List[Dict[str, Any]]:
+        """
+        Lấy danh sách tất cả documents trong knowledge base
+        
+        Returns:
+            List[Dict]: Danh sách documents với metadata
+        """
+        try:
+            all_docs = self.knowledge_collection.get(include=['documents', 'metadatas'])
+            
+            documents = []
+            seen_titles = {}
+            
+            if all_docs['documents'] and all_docs['metadatas']:
+                for doc, metadata in zip(all_docs['documents'], all_docs['metadatas']):
+                    original_title = metadata.get('original_title', metadata.get('title', 'Unknown'))
+                    
+                    # Group chunks by original title
+                    if original_title not in seen_titles:
+                        seen_titles[original_title] = {
+                            "title": original_title,
+                            "category": metadata.get("category", "general"),
+                            "created_at": metadata.get("created_at", ""),
+                            "chunks": 1
+                        }
+                    else:
+                        seen_titles[original_title]["chunks"] += 1
+            
+            documents = list(seen_titles.values())
+            return documents
+            
+        except Exception as e:
+            logger.error(f"Error getting documents: {e}")
+            return []
+
+    def delete_document(self, title: str) -> bool:
+        """
+        Xóa document khỏi knowledge base (xóa tất cả chunks)
+        
+        Args:
+            title (str): Tiêu đề document cần xóa
+            
+        Returns:
+            bool: True nếu xóa thành công
+        """
+        try:
+            # Get all documents with this title
+            all_docs = self.knowledge_collection.get(include=['metadatas'])
+            
+            ids_to_delete = []
+            if all_docs['metadatas'] and all_docs.get('ids'):
+                for i, metadata in enumerate(all_docs['metadatas']):
+                    original_title = metadata.get('original_title', metadata.get('title', ''))
+                    if original_title == title:
+                        ids_to_delete.append(all_docs['ids'][i])
+            
+            if ids_to_delete:
+                self.knowledge_collection.delete(ids=ids_to_delete)
+                logger.info(f"Deleted document '{title}' ({len(ids_to_delete)} chunks)")
+                return True
+            else:
+                logger.warning(f"Document '{title}' not found")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error deleting document: {e}")
+            return False
+
     def export_faqs(self) -> List[Dict[str, Any]]:
         """
         Export tất cả FAQs để backup hoặc review

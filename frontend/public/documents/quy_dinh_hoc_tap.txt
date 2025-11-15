@@ -1,0 +1,29 @@
+QUY ĐỊNH HỌC TẬP TRƯỜNG ĐẠI HỌC ABC
+
+I. QUY ĐỊNH CHUNG
+1. Sinh viên phải đăng ký môn học trước mỗi học kỳ theo lịch của nhà trường.
+2. Thời gian đăng ký: từ ngày 15-20 của tháng trước khi bắt đầu học kỳ mới.
+3. Sinh viên không được đăng ký quá 24 tín chỉ trong một học kỳ.
+4. Để được tốt nghiệp, sinh viên cần tích lũy đủ 128 tín chỉ cho bậc đại học.
+
+II. QUY ĐỊNH VỀ ĐIỂM SỐ
+1. Thang điểm 10: từ 0 đến 10 với 1 chữ số thập phân.
+2. Điểm tối thiểu để qua môn: 5.0
+3. Điểm trung bình tích lũy (GPA) tối thiểu để tốt nghiệp: 6.5
+4. Sinh viên có GPA dưới 4.0 trong 2 học kỳ liên tiếp sẽ bị cảnh báo học tập.
+
+III. QUY ĐỊNH VỀ CHUYÊN CẦN
+1. Sinh viên phải tham dự ít nhất 80% số tiết học của mỗi môn.
+2. Vắng mặt không phép quá 20% số tiết sẽ bị cấm thi.
+3. Trường hợp vắng mặt có phép phải có giấy tờ chứng minh hợp lệ.
+
+IV. THI CỬ VÀ ĐÁNH GIÁ
+1. Mỗi môn học có tối thiểu 3 lần đánh giá: điểm chuyên cần (10%), điểm giữa kỳ (30%), điểm cuối kỳ (60%).
+2. Sinh viên vắng thi không phép sẽ bị điểm 0 cho bài thi đó.
+3. Sinh viên được thi lại tối đa 2 lần cho mỗi môn trong thời gian 2 năm.
+4. Thời gian thi: 90 phút cho thi giữa kỳ, 120 phút cho thi cuối kỳ.
+
+V. KHEN THƯỞNG VÀ KỶ LUẬT
+1. Sinh viên có GPA >= 8.5 sẽ được xét học bổng khuyến khích học tập.
+2. Sinh viên vi phạm quy định sẽ bị xử lý kỷ luật theo mức độ: nhắc nhở, cảnh cáo, đình chỉ học tập.
+3. Gian lận trong thi cử sẽ bị đình chỉ học tập 1 học kỳ và điểm 0 cho môn thi đó.

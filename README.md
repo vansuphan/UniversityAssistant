@@ -1,9 +1,10 @@
 # Student Support Chatbot (University Assistant)
 
-Một chatbot AI thông minh được xây dựng để hỗ trợ sinh viên với các thông tin về trường đại học, sử dụng OpenAI API và function calling.
+Một chatbot AI thông minh được xây dựng để hỗ trợ sinh viên với các thông tin về trường đại học, sử dụng OpenAI API, RAG (Retrieval-Augmented Generation), và ChromaDB.
 
 ## 🚀 Tính năng
 
+### Core Features
 - **Thông tin môn học**: Tìm kiếm thông tin chi tiết về các môn học, giảng viên, lịch học
 - **Lịch thi**: Xem lịch thi giữa kỳ, cuối kỳ cho các môn học
 - **Tính học phí**: Tính toán học phí và các khoản phí dựa trên số tín chỉ
@@ -11,42 +12,77 @@ Một chatbot AI thông minh được xây dựng để hỗ trợ sinh viên v�
 - **Multi-turn conversation**: Duy trì ngữ cảnh cuộc trò chuyện
 - **Function calling**: Sử dụng OpenAI function calling để truy xuất dữ liệu động
 
+### Advanced Features
+- **RAG (Retrieval-Augmented Generation)**: Tự động retrieve context từ knowledge base để trả lời chính xác hơn
+- **FAQ Matching**: Semantic search trong ChromaDB để tìm câu trả lời nhanh
+- **Knowledge Base Management**: Upload và quản lý documents (PDF, DOCX, TXT) làm knowledge base
+- **Conversation Logging**: Lưu trữ và phân tích lịch sử conversation
+
 ## 🛠️ Công nghệ sử dụng
 
 ### Backend
 - **Python Flask**: Web framework
 - **OpenAI API**: GPT-4o-mini với function calling
+- **ChromaDB**: Vector database cho semantic search và RAG
+- **Sentence Transformers**: Embeddings cho vector search
 
 ### Frontend
 - **Next.js 14**: React framework với App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Utility-first CSS framework
 - **Axios**: HTTP client
+- **Lucide React**: Icon library
 
 ## 📁 Cấu trúc project
 
 ```
 UniversityAssistant/
 ├── backend/
-│   ├── app.py              # Flask backend với OpenAI integration
-│   ├── data_loader.py      # Module load dữ liệu từ JSON files
-│   ├── requirements.txt    # Python dependencies
-│   ├── env_example.txt     # Environment variables example
-│   └── data/               # Mock data files
-│       ├── courses.json    # Thông tin môn học
-│       ├── exams.json      # Lịch thi
-│       ├── services.json   # Dịch vụ sinh viên
-│       └── tuition.json    # Thông tin học phí
+│   ├── app.py                    # Main Flask application (67 dòng)
+│   ├── config.py                 # Configuration và constants
+│   ├── chroma_manager.py         # ChromaDB manager với RAG support
+│   ├── conversation_logger.py    # Conversation logging service
+│   ├── data_loader.py            # Module load dữ liệu từ JSON files
+│   ├── requirements.txt           # Python dependencies
+│   ├── env_example.txt            # Environment variables example
+│   ├── test_upload_api.py         # Test script cho knowledge base APIs
+│   ├── routes/                    # API routes (modular)
+│   │   ├── chat.py               # Chat endpoint với RAG
+│   │   ├── knowledge.py          # Knowledge base CRUD
+│   │   └── health.py             # Health check endpoint
+│   ├── utils/                     # Utility modules
+│   │   ├── file_processor.py     # File processing (PDF, DOCX, TXT)
+│   │   ├── openai_functions.py  # OpenAI function definitions
+│   │   └── rag_utils.py          # RAG utilities
+│   ├── data/                      # Mock data files
+│   │   ├── courses.json
+│   │   ├── exams.json
+│   │   ├── services.json
+│   │   └── tuition.json
+│   ├── chroma_db/                 # ChromaDB storage
+│   └── conversation_logs/         # Conversation logs
 ├── frontend/
 │   ├── src/
 │   │   └── app/
-│   │       ├── page.tsx    # Main chat interface
-│   │       ├── layout.tsx  # Root layout
-│   │       └── globals.css # Global styles
-│   ├── package.json        # Node.js dependencies
-│   ├── tailwind.config.js  # Tailwind configuration
-│   └── tsconfig.json       # TypeScript configuration
-├── run.sh                  # Script khởi động tự động
-├── start_backend.sh        # Script khởi động backend
-├── test_chatbot.py         # Test suite cho chatbot
+│   │       ├── components/        # React components
+│   │       │   ├── Header.tsx
+│   │       │   ├── ChatInput.tsx
+│   │       │   ├── MessageList.tsx
+│   │       │   ├── MessageBubble.tsx
+│   │       │   ├── QuickActions.tsx
+│   │       │   └── KnowledgeBaseManager.tsx
+│   │       ├── hooks/             # Custom hooks
+│   │       │   └── useChat.ts
+│   │       ├── types/             # TypeScript types
+│   │       │   └── index.ts
+│   │       ├── constants/         # Constants
+│   │       │   └── index.ts
+│   │       ├── page.tsx           # Main chat interface
+│   │       ├── layout.tsx         # Root layout
+│   │       └── globals.css        # Global styles
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── tsconfig.json
 └── README.md
 ```
 
@@ -60,8 +96,8 @@ UniversityAssistant/
 cd backend
 
 # Tạo virtual environment
-python -m venv venv-app-2
-source venv-app-2/bin/activate  # On Windows: venv-app-2\Scripts\activate
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Cài đặt dependencies
 pip install -r requirements.txt
@@ -69,7 +105,11 @@ pip install -r requirements.txt
 # Tạo file .env từ env_example.txt
 cp env_example.txt .env
 # Chỉnh sửa .env và thêm OPENAI_API_KEY của bạn
+```
 
+**Lưu ý**: ChromaDB sẽ tự động tạo thư mục `chroma_db/` khi chạy lần đầu.
+
+```bash
 # Chạy backend
 python app.py
 ```
@@ -106,21 +146,64 @@ FLASK_DEBUG=True
 - Backend chạy trên port 5001
 - Frontend kết nối đến `http://localhost:5001`
 
-### API Endpoints
+### Configuration
 
-- `POST /api/chat` - Gửi tin nhắn đến chatbot
-- `GET /api/health` - Health check endpoint
+Các cấu hình có thể chỉnh sửa trong `backend/config.py`:
 
-**Lưu ý**: Backend chạy trên port 5001, frontend kết nối đến `http://localhost:5001`
+- **RAG Configuration**: `RAG_TOP_K`, `RAG_RELEVANCE_THRESHOLD`
+- **FAQ Configuration**: `FAQ_TOP_K`, `FAQ_SIMILARITY_THRESHOLD`, `FAQ_CONFIDENCE_THRESHOLD`
+- **File Upload**: `ALLOWED_EXTENSIONS`, `MAX_FILE_SIZE`
 
-## 🧪 Test Cases
+## 📡 API Endpoints
 
-| Test ID | Scenario | Expected Behavior |
-|---------|----------|-------------------|
-| TC_01 | "Cho tôi biết thông tin môn CS101" | Trả về thông tin chi tiết môn học |
-| TC_02 | "Tính học phí cho 15 tín chỉ đại học" | Gọi function tính học phí và trả về kết quả |
-| TC_03 | "Khi nào thi cuối kỳ?" | Trả về lịch thi cuối kỳ |
-| TC_04 | "Môn nào có giảng viên Dr. Nguyen?" | Tìm kiếm môn học theo tên giảng viên |
+### Chat API
+- **`POST /api/chat`** - Gửi tin nhắn đến chatbot
+  ```json
+  {
+    "message": "Cho tôi biết thông tin về môn CS101",
+    "session_id": "session_123"
+  }
+  ```
+  Response:
+  ```json
+  {
+    "response": "...",
+    "source": "rag|faq|openai|function",
+    "session_id": "session_123",
+    "timestamp": "2024-01-01T00:00:00"
+  }
+  ```
+
+### Knowledge Base API
+- **`POST /api/knowledge/upload-file`** - Upload file (PDF, DOCX, TXT)
+  - Form-data: `file`, `title` (optional), `category` (optional)
+  
+- **`POST /api/knowledge/upload-text`** - Upload text trực tiếp
+  ```json
+  {
+    "title": "Quy định học tập",
+    "content": "...",
+    "category": "regulations"
+  }
+  ```
+
+- **`GET /api/knowledge/documents`** - Lấy danh sách documents
+
+- **`DELETE /api/knowledge/documents/<title>`** - Xóa document
+
+### Health Check
+- **`GET /api/health`** - Health check với service status
+
+## 🎯 RAG (Retrieval-Augmented Generation) Flow
+
+Hệ thống sử dụng RAG để cải thiện độ chính xác của câu trả lời:
+
+1. **User Query** → User hỏi câu hỏi
+2. **FAQ Matching** → Tìm trong FAQ collection (nếu confidence ≥ 0.8 → return ngay)
+3. **RAG Retrieve** → Tìm kiếm trong knowledge base với semantic search
+4. **Augment Prompt** → Thêm retrieved context vào system prompt
+5. **LLM Generate** → OpenAI generate response dựa trên context
+6. **Return Response** → Trả về response với source tracking
 
 ## 🎯 Function Calling
 
@@ -131,6 +214,39 @@ Chatbot sử dụng 5 function chính:
 3. **calculate_tuition**: Tính học phí
 4. **get_student_services**: Thông tin dịch vụ sinh viên
 5. **get_all_courses**: Lấy danh sách tất cả môn học
+
+## 📊 Knowledge Base Management
+
+### Upload Documents
+
+#### Qua UI (Frontend):
+1. Click button "Knowledge Base" ở header
+2. Chọn "Upload File" hoặc "Nhập Text"
+3. Điền thông tin và upload
+
+#### Qua API:
+```bash
+# Upload file
+curl -X POST http://localhost:5001/api/knowledge/upload-file \
+  -F "file=@document.pdf" \
+  -F "title=Quy định học tập" \
+  -F "category=regulations"
+
+# Upload text
+curl -X POST http://localhost:5001/api/knowledge/upload-text \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Thông tin CS101",
+    "content": "Môn CS101 học ở phòng A101...",
+    "category": "courses"
+  }'
+```
+
+### Document Processing
+
+- **Automatic Chunking**: Documents dài được tự động chia thành chunks (1000 ký tự, overlap 200)
+- **Embedding**: ChromaDB tự động tạo embeddings cho semantic search
+- **Metadata**: Lưu title, category, created_at cho mỗi document
 
 ## 📊 Mock Data
 
@@ -176,8 +292,32 @@ Sử dụng các nút hành động nhanh để:
 - 💰 Tính học phí
 - 🆘 Tìm dịch vụ hỗ trợ
 
+### 📚 Knowledge Base
 
-### ⚠️ Troubleshooting
+1. **Upload Documents**: Thêm tài liệu (PDF, DOCX, TXT) vào knowledge base
+2. **RAG Search**: Bot tự động tìm kiếm trong knowledge base khi trả lời
+3. **Manage Documents**: Xem và xóa documents qua UI
+
+## 🧪 Testing
+
+### Test Chat API
+```bash
+curl -X POST http://localhost:5001/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "Cho tôi biết thông tin về môn CS101",
+    "session_id": "test_session"
+  }'
+```
+
+### Test Knowledge Base Upload
+```bash
+# Sử dụng test script
+cd backend
+python test_upload_api.py
+```
+
+## ⚠️ Troubleshooting
 
 **Lỗi thường gặp:**
 
@@ -195,15 +335,82 @@ Sử dụng các nút hành động nhanh để:
 2. **"OpenAI API Error"**
    - Kiểm tra OPENAI_API_KEY trong file .env
    - Đảm bảo API key còn hiệu lực và có credit
-   - Test API key: `python test_setup.py`
+   - Kiểm tra base_url trong config.py
 
 3. **"Module not found"**
    - Chạy `pip install -r requirements.txt` trong backend
    - Chạy `npm install` trong frontend
    - Đảm bảo virtual environment được activate
 
-4. **Frontend không load**
+4. **"ChromaDB not initialized"**
+   - Kiểm tra quyền ghi trong thư mục backend
+   - ChromaDB sẽ tự động tạo thư mục `chroma_db/` khi chạy
+
+5. **"File upload failed"**
+   - Kiểm tra file size (tối đa 10MB)
+   - Đảm bảo file format được hỗ trợ (PDF, DOCX, TXT)
+   - Cài đặt PyPDF2 và python-docx: `pip install PyPDF2 python-docx`
+
+6. **Frontend không load**
    - Kiểm tra Node.js version (>= 16)
    - Xóa node_modules và chạy lại `npm install`
+   - Kiểm tra backend đang chạy tại port 5001
+
+## 📦 Dependencies
+
+### Backend
+- Flask 3.1.2
+- OpenAI 2.3.0
+- ChromaDB 0.4.18
+- Sentence Transformers (cho embeddings)
+- PyPDF2, python-docx (cho file processing)
+
+### Frontend
+- Next.js 14
+- React 18
+- TypeScript 5
+- Tailwind CSS 3.4
+- Axios 1.7.2
+
+## 🏗️ Architecture
+
+### Backend Architecture
+- **Modular Design**: Routes, utils, config tách biệt
+- **RAG Pipeline**: Retrieve → Augment → Generate
+- **Vector Search**: ChromaDB với semantic search
+- **Function Calling**: OpenAI functions cho structured data
+
+### Frontend Architecture
+- **Component-based**: Tách thành các components nhỏ
+- **Custom Hooks**: useChat cho chat logic
+- **Type Safety**: TypeScript với interfaces
+- **State Management**: React hooks
+
+## 📝 Notes
+
+- ChromaDB data được lưu trong `backend/chroma_db/`
+- Conversation logs được lưu trong `backend/conversation_logs/`
+- Knowledge base documents được tự động chunking nếu quá dài
+- RAG chỉ hoạt động khi có documents trong knowledge base
 
 ---
+
+**Version**: 2.0.0  
+**Last Updated**: 2024
+
+
+📄 quy_dinh_hoc_tap.txt        → Category: regulations
+📄 thong_tin_hoc_bong.txt      → Category: tuition  
+📄 hoat_dong_ngoai_khoa.txt    → Category: services
+📄 ky_tuc_xa.txt               → Category: services
+📄 quy_trinh_dang_ky_mon_hoc.txt → Category: regulations
+
+📂 Knowledge Base
+├── 📁 regulations (2 documents)
+│   ├── quy_dinh_hoc_tap.txt
+│   └── quy_trinh_dang_ky_mon_hoc.txt
+├── 📁 services (2 documents) 
+│   ├── ky_tuc_xa.txt
+│   └── hoat_dong_ngoai_khoa.txt
+└── 📁 tuition (1 document)
+    └── thong_tin_hoc_bong.txt
