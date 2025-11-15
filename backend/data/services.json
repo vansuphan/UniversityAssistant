@@ -40,5 +40,12 @@
     "location": "Health Center, Ground Floor",
     "hours": "8:00-18:00 (Mon-Fri), 9:00-15:00 (Sat)",
     "contact": "health@university.edu"
+  },
+  {
+    "service_name": "Dormitory Services",
+    "description": "Access to dormitories, rooms, and study spaces 24/7",
+    "location": "Dormitory",
+    "hours": "24/7",
+    "contact": "ktx@university.edu"
   }
 ]
