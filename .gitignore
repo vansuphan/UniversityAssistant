@@ -130,3 +130,15 @@ dist
 # Temporary folders
 tmp/
 temp/
+
+# Backend
+backend/chroma_db/
+backend/conversation_logs/
+backend/documents/
+backend/knowledge_base/
+backend/logs/
+backend/uploads/
+backend/venv/
+backend/venv-app-2/
+backend/venv.bak/
+backend/venv.bak-app-2/
